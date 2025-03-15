@@ -1,136 +1,107 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Plane, Hotel, Sun, Bus, Menu } from "lucide-react"; 
+import React, { useState, useRef, useEffect } from "react";
+import { Plane, Bed, Car, Bus, Menu, Sun } from "lucide-react";
+import WalletProfile from "./WalletProfile";
+import Farelogo from '../assets/Farelogo.png';
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false); 
-  const menuRef = useRef(null);  
-  const hamburgerRef = useRef(null);  
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const menuRef = useRef(null);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
   };
- 
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
-        menuRef.current && !menuRef.current.contains(event.target) &&
-        hamburgerRef.current && !hamburgerRef.current.contains(event.target)
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target) &&
+        menuRef.current &&
+        !menuRef.current.contains(event.target)
       ) {
-        setIsOpen(false);
+        setIsDropdownOpen(false);
       }
     };
 
-    
     document.addEventListener("click", handleClickOutside);
-
-   
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
 
   return (
-    <>
-      <div>
-        {/* Header Section */}
-        <div id="myDiv" className="bg-gradient-to-r from-[#FF476B] to-[#FF476B] p-3 flex items-center justify-between">
-          <h1 className="text-2xl text-white font-semibold ml-10">Fareclubs</h1>
-
-          {/* Hamburger Menu (visible on small screens) */}
-          <div className="sm:hidden" ref={hamburgerRef} onClick={toggleMenu}>
-            <Menu className="w-6 h-6 text-white cursor-pointer" />
-          </div>
+    <div>
+      {/* Header Section */}
+      <div className="p-3 flex items-center justify-between px-6 relative">
+        {/* Left: Hamburger Menu (Visible only on small screens) */}
+        <div className="sm:hidden cursor-pointer" ref={menuRef} onClick={toggleDropdown}>
+          <Menu className="w-6 h-6 text-black" />
         </div>
 
-        {/* Navigation Section */}
-        {/* Desktop view */}
-        <div className="hidden sm:block mt-5 px-4 sm:px-10">
-          <ul className="flex sm:flex-nowrap justify-center sm:justify-start space-x-6">
-            <li>
-              <a
-                href="#"
-                className="flex items-center space-x-2 text-black border border-gray-300 rounded-full px-4 py-2 hover:bg-red-500 hover:text-white transition"
-              >
-                <Plane className="w-5 h-5 text-blue-500" />
-                <span>Flights</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center space-x-2 text-black border border-gray-300 rounded-full px-4 py-2 hover:bg-red-500 hover:text-white transition"
-              >
-                <Hotel className="w-5 h-5 text-yellow-500" />
-                <span>Hotels</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center space-x-2 text-black border border-gray-300 rounded-full px-4 py-2 hover:bg-red-500 hover:text-white transition"
-              >
-                <Sun className="w-5 h-5 text-orange-500" />
-                <span>Holidays</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center space-x-2 text-black border border-gray-300 rounded-full px-4 py-2 hover:bg-red-500 hover:text-white transition"
-              >
-                <Bus className="w-5 h-5 text-green-500" />
-                <span>Buses</span>
-              </a>
-            </li>
-          </ul>
+        {/* Center: Logo (Hidden on small screens, visible on larger screens) */}
+        <div className="hidden sm:block">
+          <img src={Farelogo} alt="Fareclubs Logo" className="h-11 ml-5" />
         </div>
 
-        {/* Mobile view (Hamburger Menu Slider) */}
-        <div
-          ref={menuRef}
-          className={`sm:hidden absolute top-16 right-4 bg-white w-48 p-4 rounded-lg shadow-lg transition-all ${isOpen ? 'block' : 'hidden'} z-50`}
-        >
-          <ul className="space-y-4">
-            <li>
-              <a
-                href="#"
-                className="flex items-center space-x-2 text-black border border-gray-300 rounded-full px-4 py-2 hover:bg-red-500 hover:text-white transition"
-              >
-                <Plane className="w-5 h-5 text-blue-500" />
-                <span>Flights</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center space-x-2 text-black border border-gray-300 rounded-full px-4 py-2 hover:bg-red-500 hover:text-white transition"
-              >
-                <Hotel className="w-5 h-5 text-yellow-500" />
-                <span>Hotels</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center space-x-2 text-black border border-gray-300 rounded-full px-4 py-2 hover:bg-red-500 hover:text-white transition"
-              >
-                <Sun className="w-5 h-5 text-orange-500" />
-                <span>Holidays</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center space-x-2 text-black border border-gray-300 rounded-full px-4 py-2 hover:bg-red-500 hover:text-white transition"
-              >
-                <Bus className="w-5 h-5 text-green-500" />
-                <span>Buses</span>
-              </a>
-            </li>
-          </ul>
+        {/* Right: Wallet & Profile */}
+        <div className="absolute right-6 top-3">
+          <WalletProfile />
         </div>
       </div>
-    </>
+
+      {/* Gradient Divider (Visible only on larger screens) */}
+      <div className="hidden sm:block h-[5px] bg-gradient-to-r from-[#eb0066] to-[#FF476B]"></div>
+
+      {/* Navigation Section (Visible on larger screens) */}
+      <div className="hidden sm:block mt-2 px-4 sm:px-10">
+        <ul className="flex justify-center sm:justify-start space-x-3 sm:space-x-6">
+          {[
+            { icon: Plane, text: "Flights" },
+            { icon: Bed, text: "Hotels" },
+            { icon: Car, text: "Holidays" },
+            { icon: Bus, text: "Buses" },
+          ].map((item, index) => (
+            <li key={index}>
+              <a
+                href="#"
+                className="group flex items-center space-x-2 text-black border border-gray-300 rounded-full px-4 py-2 hover:bg-red-500 hover:text-white transition text-xs sm:text-base"
+              >
+                <item.icon className="w-5 h-5 text-red-500 group-hover:text-white" />
+                <span>{item.text}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Dropdown Menu (Only for small screens) */}
+      {isDropdownOpen && (
+        <div
+          ref={dropdownRef}
+          className="sm:hidden absolute top-14 left-4 bg-white shadow-md rounded-lg p-4 w-48 z-50"
+        >
+          <ul className="space-y-2">
+            {[
+              { icon: Plane, text: "Flights", color: "text-blue-500" },
+              { icon: Bed, text: "Hotels", color: "text-yellow-500" },
+              { icon: Sun, text: "Holidays", color: "text-orange-500" },
+              { icon: Bus, text: "Buses", color: "text-green-500" },
+            ].map((item, index) => (
+              <li key={index}>
+                <a
+                  href="#"
+                  className="group flex items-center space-x-2 text-black border border-gray-300 rounded-full px-4 py-2 hover:bg-red-500 hover:text-white transition"
+                >
+                  <item.icon className={`w-5 h-5 ${item.color} group-hover:text-white`} />
+                  <span>{item.text}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
   );
 };
 

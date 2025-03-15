@@ -17,14 +17,14 @@ export default function Footer() {
       },
       {
         image: "https://static.vecteezy.com/system/resources/previews/003/344/968/non_2x/hotline-icon-with-headphones-and-24-7-sign-client-support-service-vector.jpg",
-        title: "24/7 Support",
+        title: "24/7 Live Support",
         description: "Our customer service team is ready to support you 24/7 for all transactions you make through obilet Mobile Applications. You can start Live Support with one click and get help.",
       },
     ];
   
     return (
       <footer className="bg-gray-100 text-white py-12 px-6 mt-5 mr-15 ml-16">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-6">
           {cards.map((card, index) => (
             <div key={index} className="bg-white rounded-lg overflow-hidden shadow-lg flex flex-col transition-all hover:scale-105 hover:shadow-2xl hover:bg-gray-100">
               {/* Image Section (30% height) */}
