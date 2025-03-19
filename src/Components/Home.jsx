@@ -90,7 +90,7 @@ const Home = () => {
             <label className="block text-black text-xs mt-1 ml-2 mb-1">From</label>
             <input name="from" type="text" placeholder=" New Delhi" className="w-full bg-gray-100 p-1 rounded-lg text-md focus:outline-none" />
           </div>
-          <button className="cursor-pointer rounded-full hover:bg-gray-300">
+          <button className="cursor-pointer rounded-full hover:">
             <ArrowLeftRight className="w-5 h-5 text-gray-400" />
           </button>
           <div className="flex-1 bg-gray-100 rounded-lg">
