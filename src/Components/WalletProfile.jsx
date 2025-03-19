@@ -44,12 +44,12 @@ const WalletProfile = () => {
       </div>
 
       {/* Profile Section */}
-      <div className="relative">
+      <div className="relative lg:mr-10">
         <div
           className="flex items-center gap-2 cursor-pointer"
           onClick={toggleDropdown}
         >
-          <div className="w-8 h-8 bg-pink-600 text-white flex items-center justify-center rounded-full font-bold">
+          <div className="w-8 h-8 bg-pink-600 text-white flex items-center justify-center rounded-full font-bold ">
             {selectedProfile.charAt(0)}
           </div>
           {!isSmallScreen && (
